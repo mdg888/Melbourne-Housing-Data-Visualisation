@@ -1,4 +1,4 @@
-# 3179_project: Melbourne Housing Market Data Visualisation
+# Melbourne Housing Market Data Visualisation
 
 This project offers an interactive exploration of Melbourne’s housing market, focusing on visualising real estate price trends across different suburbs and property types.
 
