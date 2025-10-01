@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+    <title>Melbourne Real Estate</title>
+    <meta charset="utf-8" />
+    <!-- Import Vega & Vega-Lite (does not have to be from CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
+    <!-- Import vega-embed -->
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.2.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.20.8"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+    integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+
+
+    <script src="js/choropleth_map.js"></script>
+    <script src="js\hist_ES.js"></script>
+    <script src="js\hist_NS.js"></script>
+    <script src="js\hist_SES.js"></script>
+    <script src="js\hist_WS.js"></script>
+    <script src="js\hist_SS.js"></script>
+    <script src="js/boxplot.js"></script>
+    <script src="js\treemap.js"></script>
+    <script src="js\radar.js"></script>
+    <script src="js\scatterplot.js"></script>
+    <script src="js\scatterplot_dist.js"></script>
+<head>
+  <title>Melbourne Housing Prices (2015-2020)</title>
+  
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+  <!-- custom style -->
+  <style>
+    * {
+      font-family: 'Oxygen', sans-serif;
+      line-height: 1.5;
+    }
+
+    h1 {
+      font-weight: 900;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+        background-image: url(png/photo-1612415491873-144fd5e03169.jpeg);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed ;  
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .page {
+      width: 750px;
+      background-color: white;
+      margin: auto;
+      padding: 70px;
+      padding-top: 35px;
+    }
+
+    .vis-container {
+      width: 70%;
+    }
+
+    .description h2,
+    h1 {
+      margin-top: 10px;
+    }
+
+    .description-right {
+      padding-left: 10px;
+    }
+
+    .description-left {
+      padding-right: 10px;
+    }
+
+    .pure-g {
+      margin-bottom: 25px;
+    }
+
+    .small-font {
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page">
+
+    <!-- Title and subtitle -->
+    <div class="pure-g">
+      <div class="pure-u-1-1">
+        <h1>Melbourne Real Estate Prices (2015-2020)</h1>
+        <p style="line-height: 2;">Sourced from Kaggle via Domain.com.au, this Melbourne 
+          real estate dataset offers a wealth of information on property details, 
+          including addresses, types, prices, and locations. 
+          It serves as a valuable resource for investors and homebuyers, 
+          enabling them to make informed decisions to purchase affordable homes in 
+          prime Melbourne locations. </p>
+      </div>
+    </div>
+    <!-- end pure grid group -->
+
+    <!-- Caption/small text -->
+    <div class="pure-g">
+      <div class="pure-u-1-1">
+        <h2>What is Affordability Like in Metropolitan Melbourne?</h2>
+      </div>
+    </div>
+    <!-- end pure grid group -->
+
+    <!--Chrorpleth map-->
+    <div class="pure-g">
+      <div class="pure-u-1-2">
+        <div id="vis" class="vis-container" style="padding-right: 100px;"></div>
+      </div>
+      <div class="pure-u-1-2">
+        <div class="description description-right" >           
+            <p style="padding-top: 50px; line-height: 2;">
+                The map highlights Melbourne's average property price range: 
+                <p>With <b>Boroondara, Bayside, and Stonnington</b> council areas being the <b>most expensive</b></p>
+                <p><b>Moorabool and Melton City Council</b> areas are the <b>least expensive</b>, as they are located in Greater Melbourne.</p>
+            </p>
+        </div>
+      </div>
+    </div>
+    <!-- end pure grid group -->
+
+    <!-- Caption/small text -->
+    <div class="pure-g">
+      <div class="pure-u-1-1">
+        <p><small><i>fig 1.0 Median House Price on a Choropleth Map</i></small></p>
+      </div>
+    </div>
+    <!-- end pure grid group -->
+
+    <!--Tree map-->
+    <div class="pure-g">
+      <div class="pure-u-1-2">
+        <div id="treemap" style="padding-right: 100px;"></div>
+      </div>
+      <div class="pure-u-1-2">
+        <div class="description description-right;" style="padding-top: 70px;">           
+          <p style="line-height: 2;">
+            Further insights gleaned from the treemap highlight the top 
+            suburbs in metropolitan Melbourne:
+          </p>
+          <p style="line-height: 2;">The highest median house price are homes from <b>Deepdene</b>.</p>
+          <p style="line-height: 2;">The cheapest median house price are homes from <b>Oakleigh South</b>.</p>
+          <p></p>
+        </div>
+      </div>
+    </div>
+    <!-- end pure grid group -->
+
+    <!-- Caption/small text -->
+    <div class="pure-g">
+      <div class="pure-u-1-1">
+        <p><small><i>fig 1.1 Highest median house prices in Melbourne in Treemap</i></small></p>
+      </div>
+    </div>
+    <!-- end pure grid group -->
+
+    <!-- Caption/small text -->
+    <div class="pure-g">
+      <div class="pure-u-1-1">
+        <h2>What are Trends in Different Home Attributes?</h2>
+      </div>
+    </div>
+    <!-- end pure grid group -->
+
+    <!-- pure grid group -->
+    <div class="pure-g">
+      <div class="pure-u-1-2">
+        <div class="description description-right" style="padding-top: 40px;">
+          <p style="line-height: 2;">
+             In Melbourne, the pursuit of affordable housing is a multifaceted
+             challenge, as reflected in key trends observed in the available 
+             data. 
+          </p>
+          <p style="line-height: 2;">
+             The scatterplot analysis reveals a noteworthy correlation 
+             between the number of bedrooms and home prices, with an <b>increase</b> 
+             in the number of bedrooms often resulting in <b>higher property costs</b>. 
+             What data shows that the most expensive home on average is highest with 
+             6 bedrooms which is roughly <b>$1,900,000</b>.
+          </p>
+          <p style="line-height: 2; padding-bottom: 20px;">
+            Additionally, the scatterplot indicating that home prices tend to 
+            rise as properties draw closer to the city center underscores the 
+            impact of location on affordability.
+          </p>
+        </div>
+      </div>
+      <!--Scatterplots Graphs-->
+      <div class="pure-u-1-2">
+        <div id="scatterplot" class="vis-container"></div>
+        <p style="padding-left: 20px;"><small><i>fig 3.0 Scatterplot of Average Housing Prices by Number of Bedrooms</i></small></p>
+        <div id="scatterplot_dist" class="vis-container"></div>
+        <p style="padding-left: 20px;"><small><i>fig 3.1 Distance from CBD by Avg Home Price</i></small></p>
+        </p>
+      </div>
+    </div>
+    <!-- end pure grid group -->
+
+    <!-- Caption/small text -->
+    <div class="pure-g">
+      <div class="pure-u-1-1">
+        <h2>Does Price change based on Regions and Councils?</h2>
+      </div>
+    </div>
+    <!-- end pure grid group -->
+
+    <!-- pure grid group -->
+    <div class="pure-g">
+      <div class="pure-u-1-2">
+        <!--Radial plot and boxplot-->
+        <div id="radar" class="vis-container" style="padding-left: 50px;"></div>
+        <p><small><i>fig 4.0 Radial plot of the differnt council areas of Melbourne</i></small></p>
+        <div id="boxplot" class="vis-container" style="padding-right: 1000px;"></div>
+        <p><small><i>fig 4.1 Boxplots of regions in Melbourne metropolitan area</i></small></p>
+      </div>
+      <div class="pure-u-1-2">
+        <div class="description description-right">
+            <p style="line-height: 2;">
+              The radial plot analysis highlights <b>Boroondara</b> as having the <b>highest 
+              average house prices</b> in Victoria, potentially due to its robust 
+              infrastructure, resources, schools, and other amenities. 
+            </p>
+            <p style="line-height: 2;">
+              <b>Stonnington</b> also exhibits high prices, likely for similar reasons. These findings
+              emphasize the role of location-related factors in shaping property 
+              values in these areas.
+            </p>
+            <p style="line-height: 2;">
+              The boxplot reflects similar data to the radial plot. However showing that
+              <b>Southern suburbs are selling homes more expensive</b> on a monthly scale.
+            </p>
+            <p style="line-height: 2;">
+              This analysis shows that homes are more affordable in <b>Western</b> and <b>Northern</b> suburbs.
+            </p>
+        </div>
+      </div>
+    </div>
+    <!-- end pure grid group -->
+
+    <!-- Caption/small text -->
+    <div class="pure-g">
+      <div class="pure-u-1-1">
+        <h2>How Much are Homes Purchased for in Metropolitan Melbourne?</h2>
+      </div>
+    </div>
+    <!-- end pure grid group -->
+
+    <!-- pure grid group -->
+    <div class="pure-g">
+      <div class="pure-u-1-2">
+        <div class="description description-right">
+            <p style="padding-top: 0px; line-height: 2;">
+              In summary, the housing prices in Melbourne's different suburbs can be described as follows:
+
+              <p>Eastern suburbs: Most homes are selling for up to approximately <b>$800,000</b>.</p>
+              <p>Western suburbs: Homes are generally priced at a maximum of around <b>$650,000</b>.</p>
+              <p>Northern suburbs: Homes typically sell for around <b>$750,000</b>.</p>
+              <p>Southern suburbs: Home prices range from approximately <b>$600,000</b> to <b>$800,000</b>.</p>
+              South Eastern suburbs: Most properties are selling for prices ranging from about <b>$600,000</b> to <b>$650,000</b>. </p>
+        </div>
+      </div>
+      <div class="pure-u-1-2">
+        <div class="vis-container">
+            <div id="hist-dropdown" style="padding-top: 50px;">
+                <label for="histogram-select">Select a Histogram:</label>
+                <select id="histogram-select">
+                  <option value="hist_ES" selected>Eastern Suburb</option> <!-- Set 'selected' here -->
+                  <option value="hist_WS">Western Suburbs</option>
+                  <option value="hist_NS">Northern Suburbs</option>
+                  <option value="hist_SS">Sothern Suburbs</option>
+                  <option value="hist_SES">South Eastern Suburb</option>
+                </select>
+              </div>       
+              <div id="hist_ES"></div>
+              <div id="hist_WS" style="display: none;"></div>
+              <div id="hist_NS" style="display: none;"></div>
+              <div id="hist_SS" style="display: none;"></div>
+              <div id="hist_SES" style="display: none;"></div>
+              <script>
+                const dropdown = document.getElementById("histogram-select");
+                const visualizationContainers = [
+                  "hist_ES",
+                  "hist_WS",
+                  "hist_NS",
+                  "hist_SS",
+                  "hist_SES",
+                ];
+            
+                // Hide all histograms except the selected one initially
+                visualizationContainers.forEach((containerId) => {
+                  const container = document.getElementById(containerId);
+                  if (containerId !== "hist_ES") {
+                    container.style.display = "none";
+                  }
+                });
+            
+                dropdown.addEventListener("change", () => {
+                  const selectedValue = dropdown.value;
+                  visualizationContainers.forEach((containerId) => {
+                    const container = document.getElementById(containerId);
+                    container.style.display = containerId === selectedValue ? "block" : "none";
+                  });
+                });
+              </script>
+                <p><small><i>fig 5.0 Histograms showing how much homes are purchased for in Melbourne</i></small></p>
+        </div>
+      </div>
+    </div>
+    <!-- end pure grid group -->
+
+    <!-- Caption/small text -->
+    <div class="pure-g">
+      <div class="pure-u-1-1">
+        <h2>What We can Conclude?</h2>
+        <div>
+          <p style="line-height: 2;">
+            From the data provdied, we can show that the most affordable homes are found 
+            within <b> northern</b> and <b>western suburbs</b> of Melbourne.
+          </p>
+          <p>
+            The most expensive suburbs of Melbourne are found in the <b>southern</b> and <b>eastern</b> surbubs.
+          </p>
+          <p>
+            Hence, homebuyers in Melbourne, should be purchasing homes in around <b>northern</b> and <b>western</b> suburbs. 
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- end pure grid group -->
+
+    <div class="pure-g">
+      <div class="pure-u-1-1 small-font">
+        <p>This visualisation is created by <a href="https://github.com/mdig0003">Michael Di Giantomasso</a>. The data is
+          from multiple files found on the <a
+            href="https://discover.data.vic.gov.au/dataset?sort=score+desc%2C+metadata_modified+desc&q=&organization=&groups=education&res_format="
+            target="_blank">Victorian Givernment website</href>, <a href="https://www.kaggle.com/" target="_blank">Kaggle</a> and <a href="https://www.domain.com.au/" target="_blank">Domain.com</a> .</p>
+      </div>
+    </div>
+  </div> <!-- end page -->
+</body>
+
+</html>

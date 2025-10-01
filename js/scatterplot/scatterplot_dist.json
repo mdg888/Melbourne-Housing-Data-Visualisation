@@ -1,0 +1,33 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 260,
+  "data": {
+    "url": "data/Scatterplot data/average_prices_by_Distance.csv"
+  },
+  "mark": "point",
+  "transform": [
+    {"filter": "datum.Average_Price !== ''"}
+  ],
+  "encoding": {
+    "y": {
+      "field": "Average_Price_rounded",
+      "type": "quantitative",
+      "title": "Average Price ($AUS)",
+      "scale": {"zero": false},
+      "axis":{"format": "$,.0f"}
+    },
+    "x": {
+      "field": "Distance",
+      "type": "quantitative",
+      "title": "Distance (Km)",
+      "scale": {"zero": false}
+    },
+    "color": {"field": "Type", "type": "nominal"},
+    "shape": {"field": "Type", "type": "nominal"},
+    "tooltip":[
+      {"field":"Average_Price_rounded", "title":"Average Price of Home ($AUS)","format":"$,.0f"},
+      {"field":"Type","title":"Dwelling Type"},
+      {"field":"Distance", "title":"Distance from CBD (Km)"}
+    ]
+  }
+}

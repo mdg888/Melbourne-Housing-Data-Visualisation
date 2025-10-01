@@ -1,0 +1,38 @@
+{   
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "data/Boxplot_data.csv"},
+  "config": {"background": "transparent"},
+  "height": 150,
+  "width":150,
+  "mark": {
+    "type": "boxplot",
+    "extent": "min-max"    
+  }, "transform": [
+      {"fold": [  "January",
+                  "February",
+                  "March",
+                  "April",
+                  "May",
+                  "June",
+                  "July",
+                  "August",
+                  "September",
+                  "October",
+                  "November",
+                  "December"
+              ], "as": ["Month", "Value"]}
+    ],
+  "encoding": {
+    "y": {"field": "Region of Melbourne", 
+    "type": "nominal",
+    "title": "Regions of Melbourne"
+  },
+    "x": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {"zero": false},    
+      "axis":{"format": "$,.0f"},
+      "title":""
+    }
+  }
+}

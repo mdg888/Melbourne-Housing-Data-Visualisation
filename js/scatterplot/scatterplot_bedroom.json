@@ -1,0 +1,33 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 260,
+  "data": {
+    "url": "data/Scatterplot data/average_prices_by_bedroom_type.csv"
+  },
+  "transform": [
+    {"filter": "datum.Average_Price !== ''"}
+  ],
+  "mark": "point",
+  "encoding": {
+    "x": {
+      "field": "Bedroom2",
+      "type": "quantitative",
+      "title": "Number of Bedrooms",
+      "scale": {"zero": false}
+    },
+    "y": {
+      "field": "Average_Price",
+      "type": "quantitative",
+      "title":"Average Price of Home ($AUS)",
+      "scale": {"zero": false},
+      "axis":{"format": "$,.0f"}
+    },
+    "color": {"field": "Type", "type": "nominal"},
+    "shape": {"field": "Type", "type": "nominal"},
+    "tooltip":[
+      {"field":"Average_Price", "title":"Average Price of Home ($AUS)","format":"$,.0f"},
+      {"field":"Type", "title":"Dwelling Type"}
+
+    ]
+  }
+}

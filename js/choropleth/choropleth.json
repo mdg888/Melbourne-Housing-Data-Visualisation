@@ -1,0 +1,55 @@
+{   
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 200,
+    "height": 300,
+    "data": {
+      "url": "data/choropleth map/melbourne_map.json",
+      "format": {"type": "topojson", "feature": "Vic_map"}
+    },
+    "projection": {
+    "type": "mercator"
+  },
+    "layer": [
+      {
+        "transform": [
+          {
+            "calculate": "'Data is not available in ' + datum.properties.vic_loca_2",
+            "as": "note"
+          }
+        ],
+        "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white", "strokeWidth":0.1},
+        "encoding": {"tooltip": {"field": "note"}}
+      },
+      {
+        "transform": [
+          {
+            "lookup": "properties.vic_loca_2",
+            "from": {
+              "data": {
+                "url": "data/choropleth map/map.csv",
+                "format": {"type": "csv"}
+              },
+              "key": "SUBURB",
+              "fields": ["Median House Price"]
+            }
+          }
+        ],
+        "mark": {"type": "geoshape", "stroke": "white","strokeWidth":0.1},
+        "encoding": {
+          "color": {
+            "field": "Median House Price",
+            "title":"Median House Price ($AUS)",
+            "type": "quantitative",
+            "scale": {
+             "range": ["#fdbe85", "#fd8d3c", "#e6550d", "#a63603"],
+              "domain": [0,1250000,2000000]            
+            }          
+          },
+          "tooltip": [
+            {"field": "properties.vic_loca_2", "type": "nominal", "title": "Suburb"},
+            {"field": "Median House Price", "type": "quantitative", "title": "Median House Price", "format":"$,.0f"}        
+          ]
+        }
+      }
+    ]  
+  }
